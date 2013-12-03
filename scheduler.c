@@ -17,7 +17,7 @@ int main(int argc, char * argv[]) {
     
     ret = parse_command_line_arguments(argc, argv, filename, &num_frames);
     if(ret == -1){
-        fprintf(stderr, "Error: Command line argumnets were not valid!\n");
+        fprintf(stderr, "Error: Command line arguments were not valid!\n");
         // TODO : Print usage
         exit(-1);
     }
