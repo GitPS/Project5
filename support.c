@@ -48,7 +48,7 @@ int is_valid_int(char *str){
     int i = 0;
     
     for (i = 0; i < length; i++) {
-        if(!isdigit(str[i])){
+        if(!isdigit((unsigned char)str[i])){
             return -1; // Not an integer
         }
     }
