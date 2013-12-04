@@ -43,6 +43,81 @@ int parse_command_line_arguments(int argc, char *argv[], char *filename, int *nu
     return 0;
 }
 
+int parse_file_into_ref_string(char * filename, int * ref_string_length, int * ref_nums[], char * ref_modes[]){
+    FILE *fd = NULL;
+    char buffer[1024];
+    char *fgets_rtn = NULL;
+    
+    /* Open File */
+    fd = fopen(filename, "r");
+    if(NULL == fd){
+        fprintf(stderr, "Error: Cannot open the file %s for reading!\n", filename);
+        return -1;
+    }
+    
+    /* Read File */
+    int i = -1;
+    while(0 == feof(fd)){
+        char * str_ptr  = NULL;
+        fgets_rtn = fgets(buffer, 1024, fd);
+        
+        if( NULL == fgets_rtn) {
+            break;
+        }
+        
+        /* Strip off the new line */
+        if( '\n' == buffer[ strlen(buffer) - 1] ) {
+            buffer[ strlen(buffer) - 1] = '\0';
+        }
+        
+        /* If this is the first line in the file it contains the reference string length */
+        if(i == -1){
+            str_ptr = strtok(buffer, " ");
+            /* Check for valid integer before we call strtol()*/
+            if(is_valid_int(str_ptr) != 0){
+                return -1;
+            }
+            *ref_string_length = strtol(str_ptr, NULL, 10);
+            /* Add correct amount of space in the reference string arrays */
+            (*ref_nums) = (int *)realloc((*ref_nums), (sizeof(int) * (*ref_string_length)));
+			(*ref_modes) = (char *)realloc((*ref_modes), (sizeof(char) * (*ref_string_length)));
+            if( NULL == (*ref_nums) || NULL == (*ref_modes)) {
+                fprintf(stderr, "Error: Failed to allocate memory! Critical failure on %d!", __LINE__);
+                exit(-1);
+            }
+        }    
+        /* All other lines are part of the reference string */
+        else{
+            int j = 0;
+            for( str_ptr = strtok(buffer, " ");
+                NULL != str_ptr && *str_ptr != '\n';
+                str_ptr = strtok(NULL, " ") ) {
+                switch(j){
+                    case 0:
+                        /* Check for valid integer before we call strtol()*/
+                        if(is_valid_int(str_ptr) != 0){
+                            return -1;
+                        }
+                        (*ref_nums)[i] = strtol(str_ptr, NULL, 10);
+                        break;
+                    case 1:
+                        /* Check for valid ref mode before we call strtol()*/
+                        if(str_ptr != 'r' && str_ptr != 'w' && str_ptr != 'R' && str_ptr != 'W'){
+                            return -1;
+                        }
+                        (*ref_modes)[i] = strtol(str_ptr, NULL, 10);
+                        break;
+                    default:
+                        break;
+                }
+                j++;
+            }
+        }
+        i++;
+    }
+    return 0;
+}
+
 int is_valid_int(char *str){
     int length = strlen(str);
     int i = 0;
