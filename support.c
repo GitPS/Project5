@@ -23,7 +23,12 @@ int parse_command_line_arguments(int argc, char *argv[], char *filename, int *nu
                     return -1;
                 }
                 /* Set num_frames to that value */
-                *num_frames = strtol(argv[i + 1], NULL, 10);
+                int temp = strtol(argv[i + 1], NULL, 10);
+                /* Check for a valid frame number */
+                if( temp < 1 || temp > 7){
+                    return -1;
+                }
+                *num_frames = temp;
                 /* Skip next argument since we have used it */
                 i++;
             }

@@ -12,13 +12,14 @@
 int main(int argc, char * argv[]) {
     char filename[MAXFILENAME];
     int ret;
-    // Num frames to use in analysis.  Default to 7.
-    int num_frames = 7;
+    // Num frames to use in analysis.  Default to 0 which implies all in this case.
+    int num_frames = 0;
     
     ret = parse_command_line_arguments(argc, argv, filename, &num_frames);
     if(ret == -1){
         fprintf(stderr, "Error: Command line arguments were not valid!\n");
         fprintf(stderr, "Usage: ./scheduler <filename> [-f <frames>]\n");
+        fprintf(stderr, "  <frames> must be a number from 1 to 7\n");
         exit(-1);
     }
     
@@ -43,7 +44,7 @@ void print_ref_string(int ref_length, int * ref_nums[], char * ref_modes[]){
 }
 
 void print_header(int num_frames, char *filename){
-    if(num_frames == 7){
+    if(num_frames == 0){
         printf("Num. Frames  : All\n");
     }
     else{
