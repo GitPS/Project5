@@ -17,7 +17,14 @@
  */
 int MAXFILENAME = 256;
 
+/*
+ * TODO
+ */
 void print_header(int frames, char *filename);
 
+/*
+ * TODO
+ */
+void print_ref_string(int ref_length, int * ref_nums[], char * ref_modes[]);
 
 #endif

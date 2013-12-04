@@ -27,6 +27,21 @@ int main(int argc, char * argv[]) {
     return 0;
 }
 
+void print_ref_string(int ref_length, int * ref_nums[], char * ref_modes[]){
+	int i = 0;
+	
+	printf("Reference String:\n ");
+	
+	while(i < ref_length){
+		printf("%d:%c", ref_nums[i], ref_modes[i]);
+		if(i+1 < ref_length){
+			printf(",  ");
+		}
+	}
+	
+	printf("\n--------------------------\n");
+}
+
 void print_header(int num_frames, char *filename){
     if(num_frames == 7){
         printf("Num. Frames  : All\n");
