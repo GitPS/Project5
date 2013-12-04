@@ -102,7 +102,7 @@ int parse_file_into_ref_string(char * filename, int * ref_string_length, int * r
                         break;
                     case 1:
                         /* Check for valid ref mode before we call strtol()*/
-                        if(str_ptr != 'r' && str_ptr != 'w' && str_ptr != 'R' && str_ptr != 'W'){
+                        if(*str_ptr != 'r' && *str_ptr != 'w' && *str_ptr != 'R' && *str_ptr != 'W'){
                             return -1;
                         }
                         (*ref_modes)[i] = strtol(str_ptr, NULL, 10);
