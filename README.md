@@ -24,7 +24,11 @@ To build this software, simply navigate to the directory containing the Makefile
 
 __Usage__
 
-To use this software…
+To use this software, simply run the command `./scheduler` with the filename and path (if applicable) of a textfile where the first line states the length of the reference string and each of the remaining lines specifies an element of that string, with both the page number and read/write bit, delimited by a single space.  The page number is a single digit and the read/write bit is an 'R', 'W', or their lowercase versions.
+
+Optionally, the number of frames to be simulated can be specified with a `-f` flag followed by a number from one to seven, inclusive.  If the number of frames is not specified, the simlulations will be run against the full range of frame numbers with the reference string from the specified file.
+
+Thus, a complete command for this program might look like `./scheduler -f 4 test/level1.txt` or `./scheduler test/level2.txt`.  Note that the order of the parameters does not matter.  If incorrect syntax is specified for this command, an error will be displayed along with usage information before graceful termination.
 
 __Test Cases__
 
