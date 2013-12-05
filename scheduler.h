@@ -70,7 +70,7 @@ void print_algorithms(int num_frames, int ref_length, ref_element_t *ref_string[
  *   The number of pagefaults which occur for the given reference string and number of frames
  *
  */
-int simulate_optimal(int ref_length, ref_element_t *ref_string[]);
+int simulate_optimal(int num_frames, int ref_length, ref_element_t *ref_string[]);
 
 /*
  * Determines the number of pagefaults which occur for the First-In, First-Out page
@@ -84,7 +84,7 @@ int simulate_optimal(int ref_length, ref_element_t *ref_string[]);
  *   The number of pagefaults which occur for the given reference string and number of frames
  *
  */
-int simulate_fifo(int ref_length, ref_element_t *ref_string[]);
+int simulate_fifo(int num_frames, int ref_length, ref_element_t *ref_string[]);
 
 /*
  * Determines the number of pagefaults which occur for the Least Recently Used page
@@ -98,7 +98,7 @@ int simulate_fifo(int ref_length, ref_element_t *ref_string[]);
  *   The number of pagefaults which occur for the given reference string and number of frames
  *
  */
-int simulate_lru(int ref_length, ref_element_t *ref_string[]);
+int simulate_lru(int num_frames, int ref_length, ref_element_t *ref_string[]);
 
 /*
  * Determines the number of pagefaults which occur for the Least Recently Used, Second Chance
@@ -112,7 +112,7 @@ int simulate_lru(int ref_length, ref_element_t *ref_string[]);
  *   The number of pagefaults which occur for the given reference string and number of frames
  *
  */
-int simulate_lru_sc(int ref_length, ref_element_t *ref_string[]);
+int simulate_lru_sc(int num_frames, int ref_length, ref_element_t *ref_string[]);
 
 /*
  * Determines the number of pagefaults which occur for the Least Recently Used, Enhanced Second Chance
@@ -126,6 +126,6 @@ int simulate_lru_sc(int ref_length, ref_element_t *ref_string[]);
  *   The number of pagefaults which occur for the given reference string and number of frames
  *
  */
-int simulate_lru_esc(int ref_length, ref_element_t *ref_string[]);
+int simulate_lru_esc(int num_frames, int ref_length, ref_element_t *ref_string[]);
 
 #endif

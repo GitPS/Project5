@@ -71,42 +71,42 @@ void print_algorithms(int num_frames, int ref_length, ref_element_t *ref_string[
 		
 		for(frame = 1; frame <= 7; frame++){
 			printf(" %d        ", frame);
-			printf("%d       ", simulate_optimal(frame, ref_string));
-			printf("%d       ", simulate_fifo(frame, ref_string));
-			printf("%d       ", simulate_lru(frame, ref_string));
-			printf("%d       ", simulate_lru_sc(frame, ref_string));
-			printf("%d\n", simulate_lru_esc(frame, ref_string));
+			printf("%d       ", simulate_optimal(frame, ref_length, ref_string));
+			printf("%d       ", simulate_fifo(frame, ref_length, ref_string));
+			printf("%d       ", simulate_lru(frame, ref_length, ref_string));
+			printf("%d       ", simulate_lru_sc(frame, ref_length, ref_string));
+			printf("%d\n", simulate_lru_esc(frame, ref_length, ref_string));
 		}
 	}
 	else{
 		// Run for the given number of frames
 		
 		printf(" %d        ", num_frames);
-		printf("%d       ", simulate_optimal(num_frames, ref_string));
-		printf("%d       ", simulate_fifo(num_frames, ref_string));
-		printf("%d       ", simulate_lru(num_frames, ref_string));
-		printf("%d       ", simulate_lru_sc(num_frames, ref_string));
-		printf("%d\n", simulate_lru_esc(num_frames, ref_string));
+		printf("%d       ", simulate_optimal(num_frames, ref_length, ref_string));
+		printf("%d       ", simulate_fifo(num_frames, ref_length, ref_string));
+		printf("%d       ", simulate_lru(num_frames, ref_length, ref_string));
+		printf("%d       ", simulate_lru_sc(num_frames, ref_length, ref_string));
+		printf("%d\n", simulate_lru_esc(num_frames, ref_length, ref_string));
 	}
 	
 }
 
-int simulate_optimal(int ref_length, ref_element_t *ref_string[]){
+int simulate_optimal(int num_frames, int ref_length, ref_element_t *ref_string[]){
 	return 1;
 }
 
-int simulate_fifo(int ref_length, ref_element_t *ref_string[]){
+int simulate_fifo(int num_frames, int ref_length, ref_element_t *ref_string[]){
 	return 1;
 }
 
-int simulate_lru(int ref_length, ref_element_t *ref_string[]){
+int simulate_lru(int num_frames, int ref_length, ref_element_t *ref_string[]){
 	return 1;
 }
 
-int simulate_lru_sc(int ref_length, ref_element_t *ref_string[]){
+int simulate_lru_sc(int num_frames, int ref_length, ref_element_t *ref_string[]){
 	return 1;
 }
 
-int simulate_lru_esc(int ref_length, ref_element_t *ref_string[]){
+int simulate_lru_esc(int num_frames, int ref_length, ref_element_t *ref_string[]){
 	return 1;
 }
