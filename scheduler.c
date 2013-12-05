@@ -79,7 +79,7 @@ void print_algorithms(int num_frames, int ref_length, ref_element_t *ref_string[
 		}
 	}
 	else{
-		// Run for a single number of frames
+		// Run for the given number of frames
 		
 		printf(" %d        ", num_frames);
 		printf("%d       ", simulate_optimal(num_frames, ref_string));
