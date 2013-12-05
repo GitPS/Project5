@@ -8,7 +8,15 @@ Phillip Sime and Ryan Gittins
 
 __Summary__
 
-This software …
+This software simulates five different page replacement algorithms and displays the number of pagefaults produced by each for a given number of frames.  The number of frames can be specified by the user and must range from one to seven, inclusive.  If the number of frames is not speficied, then all algorithms are against the full range of frame sizes.  The user is required to specify the name a textfile containing the reference string in a specific format.
+
+The following page replacement algorithms are simulated by this program:
+
+* Optimal
+* First-Come, First Served (FCFS)
+* Least Recently Used (LRU)
+* Least Recently Used, Second Chance (LRU SC)
+* Least Recently Used, Enhanced Second Chance (LRU ESC)
 
 __Build__
 
