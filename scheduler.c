@@ -51,12 +51,12 @@ void print_ref_string(int ref_length, ref_element_t *ref_string[]){
 
 void print_header(int num_frames, char *filename){
     if(num_frames == 0){
-        printf("Num. Frames  : All\n");
+        printf("Num. Frames : All\n");
     }
     else{
-        printf("Num. Frames  : %d\n", num_frames);
+        printf("Num. Frames : %d\n", num_frames);
     }
-    printf("Ref. File    : %s\n", filename);
+    printf("Ref. File   : %s\n", filename);
     printf("-------------------------------\n");
 }
 
