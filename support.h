@@ -57,15 +57,15 @@ int is_valid_int(char *str);
  * Parses the command line arguments to determine the file name to
  * read from and the number of frames to simulate (if applicable).
  *
- *   filename          : Name of the file to read data from.
- *   ref_string_length : Size of the ref_string array.
- *   ref_string        : A pointer to a location to store the reference string array.
+ *   filename   : Name of the file to read data from.
+ *   ref_length : Size of the ref_string array.
+ *   ref_string : A pointer to a location to store the reference string array.
  *
  * Returns:
  *   0 on success
  *   -1 on failure
  *
  */
-int parse_file_into_ref_string(char *filename, int *ref_string_length, ref_element_t *ref_string[]);
+int parse_file_into_ref_string(char *filename, int *ref_length, ref_element_t *ref_string[]);
 
 #endif

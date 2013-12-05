@@ -12,7 +12,7 @@
 int main(int argc, char * argv[]) {
     char filename[MAXFILENAME];
 	ref_element_t *ref_string = NULL;
-	int ref_string_length = 0;
+	int ref_length = 0;
     int ret;
     // Num frames to use in analysis.  Default to 0 which implies all in this case.
     int num_frames = 0;
@@ -27,10 +27,10 @@ int main(int argc, char * argv[]) {
     
     print_header(num_frames, filename);
 	
-	parse_file_into_ref_string(filename, &ref_string_length, &ref_string);
-	print_ref_string(ref_string_length, &ref_string);
+	parse_file_into_ref_string(filename, &ref_length, &ref_string);
+	print_ref_string(ref_length, &ref_string);
 	
-	print_algorithms(num_frames, ref_string_length, &ref_string);
+	print_algorithms(num_frames, ref_length, &ref_string);
     
     return 0;
 }

@@ -48,7 +48,7 @@ int parse_command_line_arguments(int argc, char *argv[], char *filename, int *nu
     return 0;
 }
 
-int parse_file_into_ref_string(char *filename, int *ref_string_length, ref_element_t *ref_string[]){
+int parse_file_into_ref_string(char *filename, int *ref_length, ref_element_t *ref_string[]){
     FILE *fd = NULL;
     char buffer[1024];
     char *fgets_rtn = NULL;
@@ -82,9 +82,9 @@ int parse_file_into_ref_string(char *filename, int *ref_string_length, ref_eleme
             if(is_valid_int(str_ptr) != 0){
                 return -1;
             }
-            *ref_string_length = strtol(str_ptr, NULL, 10);
+            *ref_length = strtol(str_ptr, NULL, 10);
             /* Add correct amount of space in the reference string array */
-			(*ref_string) = (ref_element_t *)realloc((*ref_string), (sizeof(ref_element_t) * (*ref_string_length)));
+			(*ref_string) = (ref_element_t *)realloc((*ref_string), (sizeof(ref_element_t) * (*ref_length)));
             if( NULL == (*ref_string)) {
                 fprintf(stderr, "Error: Failed to allocate memory! Critical failure on %d!", __LINE__);
                 exit(-1);
