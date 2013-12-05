@@ -29,6 +29,8 @@ int main(int argc, char * argv[]) {
 	
 	parse_file_into_ref_string(filename, &ref_string_length, &ref_string);
 	print_ref_string(ref_string_length, &ref_string);
+	
+	print_algorithms(num_frames, ref_string_length, &ref_string);
     
     return 0;
 }
@@ -60,4 +62,51 @@ void print_header(int num_frames, char *filename){
     printf("-------------------------------\n");
 }
 
+void print_algorithms(int num_frames, int ref_length, ref_element_t *ref_string[]){
+	printf("Frames  Opt.    FIFO    LRU     SC      ESC\n");
 
+	if(num_frames == 0){
+		// Run for the full range of frames
+		int frame;
+		
+		for(frame = 1; frame <= 7; frame++){
+			printf(" %d        ", frame);
+			printf("%d       ", simulate_optimal(frame, ref_string));
+			printf("%d       ", simulate_fifo(frame, ref_string));
+			printf("%d       ", simulate_lru(frame, ref_string));
+			printf("%d       ", simulate_lru_sc(frame, ref_string));
+			printf("%d\n", simulate_lru_esc(frame, ref_string));
+		}
+	}
+	else{
+		// Run for a single number of frames
+		
+		printf(" %d        ", num_frames);
+		printf("%d       ", simulate_optimal(num_frames, ref_string));
+		printf("%d       ", simulate_fifo(num_frames, ref_string));
+		printf("%d       ", simulate_lru(num_frames, ref_string));
+		printf("%d       ", simulate_lru_sc(num_frames, ref_string));
+		printf("%d\n", simulate_lru_esc(num_frames, ref_string));
+	}
+	
+}
+
+int simulate_optimal(int ref_length, ref_element_t *ref_string[]){
+	return 1;
+}
+
+int simulate_fifo(int ref_length, ref_element_t *ref_string[]){
+	return 1;
+}
+
+int simulate_lru(int ref_length, ref_element_t *ref_string[]){
+	return 1;
+}
+
+int simulate_lru_sc(int ref_length, ref_element_t *ref_string[]){
+	return 1;
+}
+
+int simulate_lru_esc(int ref_length, ref_element_t *ref_string[]){
+	return 1;
+}
