@@ -48,7 +48,7 @@ int parse_command_line_arguments(int argc, char *argv[], char *filename, int *nu
     return 0;
 }
 
-int parse_file_into_ref_string(char * filename, int * ref_string_length, int * ref_nums[], char * ref_modes[]){
+int parse_file_into_ref_string(char *filename, int *ref_string_length, ref_element_t *ref_string[]){
     FILE *fd = NULL;
     char buffer[1024];
     char *fgets_rtn = NULL;
@@ -83,10 +83,9 @@ int parse_file_into_ref_string(char * filename, int * ref_string_length, int * r
                 return -1;
             }
             *ref_string_length = strtol(str_ptr, NULL, 10);
-            /* Add correct amount of space in the reference string arrays */
-            (*ref_nums) = (int *)realloc((*ref_nums), (sizeof(int) * (*ref_string_length)));
-			(*ref_modes) = (char *)realloc((*ref_modes), (sizeof(char) * (*ref_string_length)));
-            if( NULL == (*ref_nums) || NULL == (*ref_modes)) {
+            /* Add correct amount of space in the reference string array */
+			(*ref_string) = (ref_element_t *)realloc((*ref_string), (sizeof(ref_element_t) * (*ref_string_length)));
+            if( NULL == (*ref_string)) {
                 fprintf(stderr, "Error: Failed to allocate memory! Critical failure on %d!", __LINE__);
                 exit(-1);
             }
@@ -103,14 +102,19 @@ int parse_file_into_ref_string(char * filename, int * ref_string_length, int * r
                         if(is_valid_int(str_ptr) != 0){
                             return -1;
                         }
-                        (*ref_nums)[i] = strtol(str_ptr, NULL, 10);
+                        (*ref_string)[i].page = strtol(str_ptr, NULL, 10);
                         break;
                     case 1:
-                        /* Check for valid ref mode before we call strtol()*/
-                        if(*str_ptr != 'r' && *str_ptr != 'w' && *str_ptr != 'R' && *str_ptr != 'W'){
-                            return -1;
-                        }
-                        (*ref_modes)[i] = strtol(str_ptr, NULL, 10);
+                        /* Check for valid ref mode before we assign it*/
+						if(*str_ptr == 'r' || *str_ptr == 'R'){
+							(*ref_string)[i].mode = 'R';
+						}
+						else if(*str_ptr == 'w' || *str_ptr == 'W'){
+							(*ref_string)[i].mode = 'W';
+						}
+						else{
+							return -1;
+						}
                         break;
                     default:
                         break;

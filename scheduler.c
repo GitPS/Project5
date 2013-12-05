@@ -11,6 +11,8 @@
 
 int main(int argc, char * argv[]) {
     char filename[MAXFILENAME];
+	ref_element_t *ref_string = NULL;
+	int ref_string_length = 0;
     int ret;
     // Num frames to use in analysis.  Default to 0 which implies all in this case.
     int num_frames = 0;
@@ -24,23 +26,27 @@ int main(int argc, char * argv[]) {
     }
     
     print_header(num_frames, filename);
+	
+	parse_file_into_ref_string(filename, &ref_string_length, &ref_string);
+	print_ref_string(ref_string_length, &ref_string);
     
     return 0;
 }
 
-void print_ref_string(int ref_length, int * ref_nums[], char * ref_modes[]){
+void print_ref_string(int ref_length, ref_element_t *ref_string[]){
 	int i = 0;
 	
 	printf("Reference String:\n ");
-	
+
 	while(i < ref_length){
-		printf("%d:%c", *ref_nums[i], *ref_modes[i]);
+		printf("%d:%c", (*ref_string)[i].page, (*ref_string)[i].mode);
 		if(i+1 < ref_length){
 			printf(",  ");
 		}
+		i++;
 	}
 	
-	printf("\n--------------------------\n");
+	printf("\n-------------------------------\n");
 }
 
 void print_header(int num_frames, char *filename){
@@ -51,7 +57,7 @@ void print_header(int num_frames, char *filename){
         printf("Num. Frames  : %d\n", num_frames);
     }
     printf("Ref. File    : %s\n", filename);
-    printf("--------------------------\n");
+    printf("-------------------------------\n");
 }
 
 

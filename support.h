@@ -16,6 +16,15 @@
 #define _support_h
 
 /*
+ * Structures
+ */
+struct ref_element_t {
+    int page;
+    char mode;
+};
+typedef struct ref_element_t ref_element_t;
+
+/*
  * TODO
  */
 int parse_command_line_arguments(int argc, char *argv[], char *filename, int *num_frames);
@@ -28,6 +37,6 @@ int is_valid_int(char *str);
 /*
  * TODO
  */
-int parse_file_into_ref_string(char * filename, int * ref_string_length, int * ref_nums[], char * ref_modes[]);
+int parse_file_into_ref_string(char *filename, int *ref_string_length, ref_element_t *ref_string[]);
 
 #endif
