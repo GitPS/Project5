@@ -26,6 +26,13 @@ struct ref_element_t {
 };
 typedef struct ref_element_t ref_element_t;
 
+// Structure to hold a timestamp for LRU algorithms.
+struct clock_t{
+    int time;
+    int value;
+};
+typedef struct clock_t clock_t;
+
 /*
  * Parses the command line arguments to determine the file name to
  * read from and the number of frames to simulate (if applicable).
