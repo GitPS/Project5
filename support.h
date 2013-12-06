@@ -68,4 +68,19 @@ int is_valid_int(char *str);
  */
 int parse_file_into_ref_string(char *filename, int *ref_length, ref_element_t *ref_string[]);
 
+/*
+ * Takes an array of ints and checks to see if a given int is in that array.
+ *
+ * Paramters:
+ *   array  : An array of integers to search through
+ *   size   : The size of array
+ *   search : The int to search for
+ *
+ * Returns:
+ *   1 if the int is in the array.
+ *   0 if the int is not in the array.
+ *
+ */
+int in_array(int *array, int size, int search);
+
 #endif

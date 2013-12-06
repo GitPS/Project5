@@ -96,7 +96,22 @@ int simulate_optimal(int num_frames, int ref_length, ref_element_t *ref_string[]
 }
 
 int simulate_fifo(int num_frames, int ref_length, ref_element_t *ref_string[]){
-	return 1;
+	int frames[7] = {-1,-1,-1,-1,-1,-1,-1};
+	// Index we'll insert into next
+	int insert = 0;
+	int faults = 0;
+	int i;
+	
+	for(i = 0; i < ref_length; i++){
+		if(!in_array(frames, num_frames, (*ref_string)[i].page)){
+			// Not in the array
+			frames[insert] = (*ref_string)[i].page;
+			insert = (insert + 1) % num_frames;
+			faults++;
+		}
+	}
+
+	return faults;
 }
 
 int simulate_lru(int num_frames, int ref_length, ref_element_t *ref_string[]){

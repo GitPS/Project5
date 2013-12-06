@@ -139,3 +139,13 @@ int is_valid_int(char *str){
     
     return 0; // Is an integer
 }
+
+int in_array(int *array, int size, int search){
+    int i;
+
+	for (i = 0; i < size; i++)
+		if (array[i] == search){
+			return 1;
+		}
+	return 0;
+}
