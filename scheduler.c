@@ -71,22 +71,22 @@ void print_algorithms(int num_frames, int ref_length, ref_element_t *ref_string[
 		
 		for(frame = 1; frame <= 7; frame++){
 			printf(" %d        ", frame);
-			printf("%d       ", simulate_optimal(frame, ref_length, ref_string));
-			printf("%d       ", simulate_fifo(frame, ref_length, ref_string));
-			printf("%d       ", simulate_lru(frame, ref_length, ref_string));
-			printf("%d       ", simulate_lru_sc(frame, ref_length, ref_string));
-			printf("%d\n", simulate_lru_esc(frame, ref_length, ref_string));
+			printf("%*d     ", 2,  simulate_optimal(frame, ref_length, ref_string));
+			printf("%*d     ", 2, simulate_fifo(frame, ref_length, ref_string));
+			printf("%*d     ", 2, simulate_lru(frame, ref_length, ref_string));
+			printf("%*d     ", 2, simulate_lru_sc(frame, ref_length, ref_string));
+			printf("%*d\n", 2, simulate_lru_esc(frame, ref_length, ref_string));
 		}
 	}
 	else{
 		// Run for the given number of frames
 		
 		printf(" %d        ", num_frames);
-		printf("%d       ", simulate_optimal(num_frames, ref_length, ref_string));
-		printf("%d       ", simulate_fifo(num_frames, ref_length, ref_string));
-		printf("%d       ", simulate_lru(num_frames, ref_length, ref_string));
-		printf("%d       ", simulate_lru_sc(num_frames, ref_length, ref_string));
-		printf("%d\n", simulate_lru_esc(num_frames, ref_length, ref_string));
+		printf("%*d       ", 2, simulate_optimal(num_frames, ref_length, ref_string));
+		printf("%*d       ", 2, simulate_fifo(num_frames, ref_length, ref_string));
+		printf("%*d       ", 2, simulate_lru(num_frames, ref_length, ref_string));
+		printf("%*d       ", 2, simulate_lru_sc(num_frames, ref_length, ref_string));
+		printf("%*d\n", 2, simulate_lru_esc(num_frames, ref_length, ref_string));
 	}
 	
 }
@@ -115,7 +115,74 @@ int simulate_fifo(int num_frames, int ref_length, ref_element_t *ref_string[]){
 }
 
 int simulate_lru(int num_frames, int ref_length, ref_element_t *ref_string[]){
-	return 1;
+    int frames[7] = {-1,-1,-1,-1,-1,-1,-1};
+    int faults = 0;
+    int insert = 0;
+    int lru_min_time = -1;
+    int lru_value = -1;
+    int time = 0;
+    int i, j;
+    int timestamps_size = 10;
+    
+    /* Create an array for the timestamps */
+    clock_t *timestamps = (clock_t*)malloc(sizeof(clock_t) * timestamps_size);
+    if(timestamps == NULL){
+        fprintf(stderr, "Error: Failed to allocate memory!  Critical failure on %d!", __LINE__);
+        exit(-1);
+    }
+    
+    /* Set default values for timestamps array */
+    for(i = 0; i < timestamps_size; i++){
+        timestamps[i].time = -1;
+        timestamps[i].value = i;
+    }
+    
+    /* All initial page references will be a page fault */
+    // This needs testing.  (i <= insert) may need to be (i < insert)
+    for(i = 0; i < ref_length && i < num_frames && insert < num_frames; i++){
+        if(!in_array(frames, num_frames, (*ref_string)[i].page)){
+			// Not in the array
+			frames[insert] = (*ref_string)[i].page;
+            /* Update timestamp */
+            timestamps[(*ref_string)[i].page].time = time;
+            // DEBUG
+            //printf("Update page number %d with the time %d.\n", (*ref_string)[i].page, time);
+            time++;
+			insert++;
+			faults++;
+		}
+        /* If it is already in the array update the time */
+        else{
+            timestamps[(*ref_string)[i].page].time = time;
+            time++;
+        }
+    }
+    
+    for(i = i; i < ref_length; i++){
+        if(!in_array(frames, num_frames, (*ref_string)[i].page)){
+            /* Determine LRU */
+            lru_min_time = 999;
+            for(j = 1; j < timestamps_size; j++){
+                if(in_array(frames, num_frames, timestamps[j].value)){
+                    if(lru_min_time > timestamps[j].time || lru_min_time == -1){
+                        lru_min_time = timestamps[j].time;
+                        lru_value = timestamps[j].value;
+                    }
+                }
+            }
+            /* Replace LRU in frames array */
+            for(j = 0; j < num_frames; j++){
+                if(frames[j] == lru_value){
+                    frames[j] = (*ref_string)[i].page;
+                    timestamps[(*ref_string)[i].page].time = time;
+                    time++;
+                    faults++;
+                }
+            }
+        }
+    }
+    
+	return faults;
 }
 
 int simulate_lru_sc(int num_frames, int ref_length, ref_element_t *ref_string[]){
