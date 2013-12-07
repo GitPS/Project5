@@ -82,10 +82,10 @@ void print_algorithms(int num_frames, int ref_length, ref_element_t *ref_string[
 		// Run for the given number of frames
 		
 		printf(" %d        ", num_frames);
-		printf("%*d       ", 2, simulate_optimal(num_frames, ref_length, ref_string));
-		printf("%*d       ", 2, simulate_fifo(num_frames, ref_length, ref_string));
-		printf("%*d       ", 2, simulate_lru(num_frames, ref_length, ref_string));
-		printf("%*d       ", 2, simulate_lru_sc(num_frames, ref_length, ref_string));
+		printf("%*d     ", 2, simulate_optimal(num_frames, ref_length, ref_string));
+		printf("%*d     ", 2, simulate_fifo(num_frames, ref_length, ref_string));
+		printf("%*d     ", 2, simulate_lru(num_frames, ref_length, ref_string));
+		printf("%*d     ", 2, simulate_lru_sc(num_frames, ref_length, ref_string));
 		printf("%*d\n", 2, simulate_lru_esc(num_frames, ref_length, ref_string));
 	}
 	
