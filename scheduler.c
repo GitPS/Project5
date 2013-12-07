@@ -138,15 +138,12 @@ int simulate_lru(int num_frames, int ref_length, ref_element_t *ref_string[]){
     }
     
     /* All initial page references will be a page fault */
-    // This needs testing.  (i <= insert) may need to be (i < insert)
-    for(i = 0; i < ref_length && i < num_frames && insert < num_frames; i++){
+    for(i = 0; i < ref_length && insert < num_frames; i++){
         if(!in_array(frames, num_frames, (*ref_string)[i].page)){
 			// Not in the array
 			frames[insert] = (*ref_string)[i].page;
             /* Update timestamp */
-            timestamps[(*ref_string)[i].page].time = time;
-            // DEBUG
-            //printf("Update page number %d with the time %d.\n", (*ref_string)[i].page, time);
+            timestamps[(*ref_string)[i].page].time = time;;
             time++;
 			insert++;
 			faults++;
@@ -161,8 +158,8 @@ int simulate_lru(int num_frames, int ref_length, ref_element_t *ref_string[]){
     for(i = i; i < ref_length; i++){
         if(!in_array(frames, num_frames, (*ref_string)[i].page)){
             /* Determine LRU */
-            lru_min_time = 999;
-            for(j = 1; j < timestamps_size; j++){
+            lru_min_time = -1;
+            for(j = 0; j < timestamps_size; j++){
                 if(in_array(frames, num_frames, timestamps[j].value)){
                     if(lru_min_time > timestamps[j].time || lru_min_time == -1){
                         lru_min_time = timestamps[j].time;
@@ -179,6 +176,11 @@ int simulate_lru(int num_frames, int ref_length, ref_element_t *ref_string[]){
                     faults++;
                 }
             }
+        }
+        /* If it is already in the array update the time */
+        else{
+            timestamps[(*ref_string)[i].page].time = time;
+            time++;
         }
     }
     
