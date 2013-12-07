@@ -98,7 +98,7 @@ int simulate_optimal(int num_frames, int ref_length, ref_element_t *ref_string[]
     int lru_min_time = -1;
     int lru_value = -1;
     int time = 0;
-    int i, j, k;
+    int i, j;
     int timestamps_size = 10;
     
     /* Create an array for the timestamps */
@@ -129,8 +129,8 @@ int simulate_optimal(int num_frames, int ref_length, ref_element_t *ref_string[]
             lru_min_time = -1;
             lru_value = -1;
             /* Set clock time for future pages */
-            for (k = (i + 1); k < ref_length; k++) {
-                int temp_page = (*ref_string)[k].page;
+            for (j = (i + 1); j < ref_length; j++) {
+                int temp_page = (*ref_string)[j].page;
                 /* 
                  * See if the next page is in the frames array.
                  * If it is, we need to set the timestamp for it,
