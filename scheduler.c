@@ -92,7 +92,85 @@ void print_algorithms(int num_frames, int ref_length, ref_element_t *ref_string[
 }
 
 int simulate_optimal(int num_frames, int ref_length, ref_element_t *ref_string[]){
-	return 1;
+    int frames[7] = {-1,-1,-1,-1,-1,-1,-1};
+    int faults = 0;
+    int insert = 0;
+    int lru_min_time = -1;
+    int lru_value = -1;
+    int time = 0;
+    int i, j, k;
+    int timestamps_size = 10;
+    
+    /* Create an array for the timestamps */
+    clock_t *timestamps = (clock_t*)malloc(sizeof(clock_t) * timestamps_size);
+    if(timestamps == NULL){
+        fprintf(stderr, "Error: Failed to allocate memory!  Critical failure on %d!", __LINE__);
+        exit(-1);
+    }
+    
+    /* Set default values for timestamps array */
+    for(i = 0; i < timestamps_size; i++){
+        timestamps[i].time = -1;
+    }
+    
+    /* All initial page references will be a page fault */
+    for(i = 0; i < ref_length && insert < num_frames; i++){
+        if(!in_array(frames, num_frames, (*ref_string)[i].page)){
+			// Not in the array
+            frames[insert] = (*ref_string)[i].page;
+			insert++;
+			faults++;
+		}
+    }
+    
+    for(i = i; i < ref_length; i++){
+        if(!in_array(frames, num_frames, (*ref_string)[i].page)){
+            /* Determine optimal replacement */
+            lru_min_time = -1;
+            lru_value = -1;
+            /* Set clock time for future pages */
+            for (k = (i + 1); k < ref_length; k++) {
+                int temp_page = (*ref_string)[k].page;
+                /* 
+                 * See if the next page is in the frames array.
+                 * If it is, we need to set the timestamp for it,
+                 * but only if it is still -1.
+                 */
+                if( in_array(frames, num_frames, temp_page) && timestamps[temp_page].time == -1 ){
+                    timestamps[temp_page].time = time;
+                    time++;
+                }
+            }
+            /* Determine which page will not be used in the near future */
+            for (j = 0; j < num_frames; j++) {
+                if (timestamps[frames[j]].time > lru_min_time || timestamps[frames[j]].time == -1) {
+                    if(lru_min_time == -1 && in_array(frames, num_frames, lru_value)){
+                        // Do nothing
+                    }
+                    else{
+                        lru_min_time = timestamps[frames[j]].time;
+                        lru_value = frames[j];
+                    }
+                    //printf("\nDEBUG %d", __LINE__);
+                }
+            }
+            
+            /* Replace optimal value in frames array */
+            for(j = 0; j < num_frames; j++){
+                //printf("\nDEBUG %d", __LINE__);
+                if(frames[j] == lru_value){
+                    frames[j] = (*ref_string)[i].page;
+                    faults++;
+                }
+            }
+            /* Reset values for timestamps array */
+            for(j = 0; j < timestamps_size; j++){
+                timestamps[j].time = -1;
+            }
+        }
+    }
+    
+	return faults;
 }
 
 int simulate_fifo(int num_frames, int ref_length, ref_element_t *ref_string[]){
