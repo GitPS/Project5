@@ -134,7 +134,6 @@ int simulate_lru(int num_frames, int ref_length, ref_element_t *ref_string[]){
     /* Set default values for timestamps array */
     for(i = 0; i < timestamps_size; i++){
         timestamps[i].time = -1;
-        timestamps[i].value = i;
     }
     
     /* All initial page references will be a page fault */
@@ -160,10 +159,10 @@ int simulate_lru(int num_frames, int ref_length, ref_element_t *ref_string[]){
             /* Determine LRU */
             lru_min_time = -1;
             for(j = 0; j < timestamps_size; j++){
-                if(in_array(frames, num_frames, timestamps[j].value)){
+                if(in_array(frames, num_frames, j)){
                     if(lru_min_time > timestamps[j].time || lru_min_time == -1){
                         lru_min_time = timestamps[j].time;
-                        lru_value = timestamps[j].value;
+                        lru_value = j;
                     }
                 }
             }

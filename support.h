@@ -29,7 +29,7 @@ typedef struct ref_element_t ref_element_t;
 // Structure to hold a timestamp for LRU algorithms.
 struct clock_t{
     int time;
-    int value;
+    int second_chance;
 };
 typedef struct clock_t clock_t;
 
