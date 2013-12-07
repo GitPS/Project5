@@ -95,8 +95,8 @@ int simulate_optimal(int num_frames, int ref_length, ref_element_t *ref_string[]
     int frames[7] = {-1,-1,-1,-1,-1,-1,-1};
     int faults = 0;
     int insert = 0;
-    int lru_min_time = -1;
-    int lru_value = -1;
+    int optimal_time = -1;
+    int optimal_value = -1;
     int time = 0;
     int i, j;
     int timestamps_size = 10;
@@ -126,8 +126,8 @@ int simulate_optimal(int num_frames, int ref_length, ref_element_t *ref_string[]
     for(i = i; i < ref_length; i++){
         if(!in_array(frames, num_frames, (*ref_string)[i].page)){
             /* Determine optimal replacement */
-            lru_min_time = -1;
-            lru_value = -1;
+            optimal_time = -1;
+            optimal_value = -1;
             /* Set clock time for future pages */
             for (j = (i + 1); j < ref_length; j++) {
                 int temp_page = (*ref_string)[j].page;
@@ -143,13 +143,13 @@ int simulate_optimal(int num_frames, int ref_length, ref_element_t *ref_string[]
             }
             /* Determine which page will not be used in the near future */
             for (j = 0; j < num_frames; j++) {
-                if (timestamps[frames[j]].time > lru_min_time || timestamps[frames[j]].time == -1) {
-                    if(lru_min_time == -1 && in_array(frames, num_frames, lru_value)){
+                if (timestamps[frames[j]].time > optimal_time || timestamps[frames[j]].time == -1) {
+                    if(optimal_time == -1 && in_array(frames, num_frames, optimal_value)){
                         // Do nothing
                     }
                     else{
-                        lru_min_time = timestamps[frames[j]].time;
-                        lru_value = frames[j];
+                        optimal_time = timestamps[frames[j]].time;
+                        optimal_value = frames[j];
                     }
                     //printf("\nDEBUG %d", __LINE__);
                 }
@@ -158,7 +158,7 @@ int simulate_optimal(int num_frames, int ref_length, ref_element_t *ref_string[]
             /* Replace optimal value in frames array */
             for(j = 0; j < num_frames; j++){
                 //printf("\nDEBUG %d", __LINE__);
-                if(frames[j] == lru_value){
+                if(frames[j] == optimal_value){
                     frames[j] = (*ref_string)[i].page;
                     faults++;
                 }
