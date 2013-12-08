@@ -102,7 +102,7 @@ int simulate_optimal(int num_frames, int ref_length, ref_element_t *ref_string[]
     int timestamps_size = 10;
     
     /* Create an array for the timestamps */
-    clock_t *timestamps = (clock_t*)malloc(sizeof(clock_t) * timestamps_size);
+    timeclock_t *timestamps = (timeclock_t*)malloc(sizeof(timeclock_t) * timestamps_size);
     if(timestamps == NULL){
         fprintf(stderr, "Error: Failed to allocate memory!  Critical failure on %d!", __LINE__);
         exit(-1);
@@ -203,7 +203,7 @@ int simulate_lru(int num_frames, int ref_length, ref_element_t *ref_string[]){
     int timestamps_size = 10;
     
     /* Create an array for the timestamps */
-    clock_t *timestamps = (clock_t*)malloc(sizeof(clock_t) * timestamps_size);
+    timeclock_t *timestamps = (timeclock_t*)malloc(sizeof(timeclock_t) * timestamps_size);
     if(timestamps == NULL){
         fprintf(stderr, "Error: Failed to allocate memory!  Critical failure on %d!", __LINE__);
         exit(-1);

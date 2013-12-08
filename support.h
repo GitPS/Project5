@@ -27,11 +27,11 @@ struct ref_element_t {
 typedef struct ref_element_t ref_element_t;
 
 // Structure to hold a timestamp for LRU algorithms.
-struct clock_t{
+struct timeclock_t{
     int time;
     int second_chance;
 };
-typedef struct clock_t clock_t;
+typedef struct timeclock_t timeclock_t;
 
 /*
  * Parses the command line arguments to determine the file name to
