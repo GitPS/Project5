@@ -266,7 +266,7 @@ int simulate_lru(int num_frames, int ref_length, ref_element_t *ref_string[]){
 
 int simulate_lru_sc(int num_frames, int ref_length, ref_element_t *ref_string[]){
 	int frames[7] = {-1,-1,-1,-1,-1,-1,-1};
-	int ref_bits[7] = {1,1,1,1,1,1,1};
+	int ref_bits[7] = {0,0,0,0,0,0,0};
 	// Index we'll insert into next
 	int insert = 0;
 	int faults = 0;
