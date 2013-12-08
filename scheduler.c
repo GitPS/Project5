@@ -265,7 +265,31 @@ int simulate_lru(int num_frames, int ref_length, ref_element_t *ref_string[]){
 }
 
 int simulate_lru_sc(int num_frames, int ref_length, ref_element_t *ref_string[]){
-	return 1;
+	int frames[7] = {-1,-1,-1,-1,-1,-1,-1};
+	int ref_bits[7] = {1,1,1,1,1,1,1};
+	// Index we'll insert into next
+	int insert = 0;
+	int faults = 0;
+	int i;
+	
+	for(i = 0; i < ref_length; i++){
+		if(!in_array(frames, num_frames, (*ref_string)[i].page)){
+			// Not in the array, check/set reference bits
+			while(ref_bits[insert] == 1){
+				ref_bits[insert] = 0;
+				insert = (insert + 1) % num_frames;
+			}
+			frames[insert] = (*ref_string)[i].page;
+			ref_bits[insert] = 1;
+			faults++;
+		}
+		else{
+			// Found it, update reference bit
+			ref_bits[insert] = 1;
+		}
+	}
+
+	return faults;
 }
 
 int simulate_lru_esc(int num_frames, int ref_length, ref_element_t *ref_string[]){
