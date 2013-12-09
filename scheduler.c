@@ -281,11 +281,12 @@ int simulate_lru_sc(int num_frames, int ref_length, ref_element_t *ref_string[])
 			}
 			frames[insert] = (*ref_string)[i].page;
 			ref_bits[insert] = 1;
+			insert = (insert + 1) % num_frames;
 			faults++;
 		}
 		else{
 			// Found it, update reference bit
-			ref_bits[insert] = 1;
+			ref_bits[ get_index(frames, num_frames, (*ref_string)[i].page) ] = 1;
 		}
 	}
 

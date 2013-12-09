@@ -90,4 +90,19 @@ int parse_file_into_ref_string(char *filename, int *ref_length, ref_element_t *r
  */
 int in_array(int *array, int size, int search);
 
+/*
+ * Takes an array of ints and checks to see if a given int is in that array.
+ *
+ * Paramters:
+ *   array  : An array of integers to search through
+ *   size   : The size of array
+ *   search : The int to search for
+ *
+ * Returns:
+ *   The index the search value is located at in the array.
+ *   -1 if the search value is not in the array.
+ *
+ */
+int get_index(int *array, int size, int search);
+
 #endif

@@ -149,3 +149,13 @@ int in_array(int *array, int size, int search){
 		}
 	return 0;
 }
+
+int get_index(int *array, int size, int search){
+	    int i;
+
+	for (i = 0; i < size; i++)
+		if (array[i] == search){
+			return i;
+		}
+	return -1;
+}
