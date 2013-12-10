@@ -51,7 +51,7 @@ __Test Cases__
 
 * Test 9 - `test/level9.txt` - This test contains 1000 sudo-randomly generated page references. This test is purely to demonstrate that a large number of pages can be processed by all algorithms. Note: one quick check to ensure accuracy is that all page faults are equal for 1 frame.
 
-* Test 10 - `test/level10.txt' - This test contains a value declaring a greater number of reference strings than actually exist in the file. This test ensures that files that are improperly formatted are handled correctly.
+* Test 10 - `test/level10.txt` - This test contains a value declaring a greater number of reference strings than actually exist in the file. This test ensures that files that are improperly formatted are handled correctly.
 
 __Examples__
 
