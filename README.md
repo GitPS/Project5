@@ -47,7 +47,7 @@ __Test Cases__
 
 * Test 7 - `test/level7.txt` - This test contains 98 page references that iterate over the values 0-6 in order. This test demonstrates a large number of page references. This test also demonstrates the accuracy and correctness of the Optimal algorithm.
 
-* Test 8 - `test/level8.txt` - This test was created with 20 page references. This test allows a sudo-random case to be used to verify the algorithms are working properly by manually checking the results. For example: LRU with 4 frames should produce 15 hits according to the program. After manually working through LRU the results were 15 hits with the ending from containing, in order, [7,6,4,2].
+* Test 8 - `test/level8.txt` - This test was created with 20 page references. This test allows a sudo-random case to be used to verify the algorithms are working properly by manually checking the results. For example: LRU with 4 frames should produce 15 hits according to the program. After manually working through LRU the results were 15 hits with the ending frames containing, in order, [7,6,4,2].
 
 * Test 9 - `test/level9.txt` - This test contains 1000 sudo-randomly generated page references. This test is purely to demonstrate that a large number of pages can be processed by all algorithms. Note: one quick check to ensure accuracy is that all page faults are equal for 1 frame.
 
