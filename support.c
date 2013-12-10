@@ -52,6 +52,7 @@ int parse_file_into_ref_string(char *filename, int *ref_length, ref_element_t *r
     FILE *fd = NULL;
     char buffer[1024];
     char *fgets_rtn = NULL;
+    int lines_read = 0;
     
     /* Open File */
     fd = fopen(filename, "r");
@@ -63,6 +64,7 @@ int parse_file_into_ref_string(char *filename, int *ref_length, ref_element_t *r
     /* Read File */
     int i = -1;
     while(0 == feof(fd)){
+        lines_read++;
         char * str_ptr  = NULL;
         fgets_rtn = fgets(buffer, 1024, fd);
         
@@ -124,6 +126,12 @@ int parse_file_into_ref_string(char *filename, int *ref_length, ref_element_t *r
         }
         i++;
     }
+    
+    /* Check that the proper number of lines were read */
+    if(lines_read < (*ref_length + 1)){
+        return -1;
+    }
+    
     return 0;
 }
 
