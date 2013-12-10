@@ -299,5 +299,75 @@ int simulate_lru_sc(int num_frames, int ref_length, ref_element_t *ref_string[])
 }
 
 int simulate_lru_esc(int num_frames, int ref_length, ref_element_t *ref_string[]){
-	return 1;
+	int frames[7] = {-1,-1,-1,-1,-1,-1,-1};
+	int ref_bits[7] = {0,0,0,0,0,0,0};
+	char ref_modes[7] = {'N','N','N','N','N','N','N'};
+	// Index we'll insert into next
+	int insert = 0;
+	int faults = 0;
+	int i, j, found;
+	
+	for(i = 0; i < ref_length; i++){
+		found = 0;
+		
+		for(j = 0; j < num_frames && !found; j++){
+			if(frames[j] == (*ref_string)[i].page && ref_modes[j] == (*ref_string)[i].mode){
+				// Found it, update ref_bit
+				ref_bits[j] = 1;
+				found = 1;
+			}
+		}
+		
+		if(!found){
+			// Not in the array, pick a victim (0,R)
+			for(j = 0; j < num_frames && !found; j++){
+				if(ref_bits[insert] == 0 && ref_modes[insert] != 'W'){
+					found = 1;
+				}
+				else
+				{
+					insert = (insert + 1) % num_frames;
+				}
+			}
+			// If no victim is selected, look for (0,W), changing ref_bits this time
+			for(j = 0; j < num_frames && !found; j++){
+				if(ref_bits[insert] == 0 && ref_modes[insert] != 'R'){
+					found = 1;
+				}
+				else{
+					ref_bits[insert] = 0;
+					insert = (insert + 1) % num_frames;
+				}
+			}
+			// If no victim is found, look for (0,R) again, now that we've changed ref_bits
+			for(j = 0; j < num_frames && !found; j++){
+				if(ref_bits[insert] == 0 && ref_modes[insert] != 'W'){
+					found = 1;
+				}
+				else{
+					insert = (insert + 1) % num_frames;
+				}
+			}
+			// If no victim is found, settle for the first (0,W) we find
+			/*for(j = 0; j < num_frames && !found; j++){
+				if(ref_bits[insert] == 0 && ref_modes[insert] != 'R'){
+					found = 1;
+				}
+				else{
+					ref_bits[insert] = 0;
+					insert = (insert + 1) % num_frames;
+				}
+			}*/
+			
+			// frames[insert] is now the victim
+			frames[insert] = (*ref_string)[i].page;
+			ref_modes[insert] = (*ref_string)[i].mode;
+			ref_bits[insert] = 1;
+			insert = (insert + 1) % num_frames;
+			faults++;
+		}
+
+	}
+
+	return faults;
 }
