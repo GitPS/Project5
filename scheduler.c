@@ -27,7 +27,12 @@ int main(int argc, char * argv[]) {
     
     print_header(num_frames, filename);
 	
-	parse_file_into_ref_string(filename, &ref_length, &ref_string);
+	ret = parse_file_into_ref_string(filename, &ref_length, &ref_string);
+    if(ret == -1){
+        fprintf(stderr, "Ensure that the file specified exists and is properly formatted.\n");
+        exit(-1);
+    }
+    
 	print_ref_string(ref_length, &ref_string);
 	
 	print_algorithms(num_frames, ref_length, &ref_string);
