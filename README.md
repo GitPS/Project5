@@ -32,6 +32,16 @@ Thus, a complete command for this program might look like `./scheduler -f 4 test
 
 __Test Cases__
 
+* Test 1 - level1.txt - This test is a default test case from the Project Description PDF.
+* Test 2 - level2.txt - This test is a default test case from the Project Description PDF.
+* Test 3 - level3.txt - This test is a default test case from the Project Description PDF.
+* Test 4 - level4.txt - This test is a default test case from the Project Description PDF.
+* Test 5 - level5.txt - This test is 40 page references to page 1. This allows for a quick check of logic where we expect all of the results to be 1.
+* Test 6 - level6.txt - This test contians 10 page references with all possible page values (0-9) being tested. Since we never repeat any page numbers, each algorithm should produce 10 page faults in every case.
+* Test 7 - level7.txt - This test contains 98 page references that iterate over the values 0-6 in order. This test demonstrates a large number of page references. This test also demonstrates the accuracy and correctness of the Optimal algorithm.
+* Test 8 - level8.txt - This test was created with 20 page references. This test allows a sudo-random case to be used to verify the algorithms are working properly by manually checking the results. For example: LRU with 4 frames should produce 15 hits according to the program. After manually working through LRU the results were 15 hits with the ending from containing, in order, [7,6,4,2].
+* Test 9 - level9.txt - This test contains 1000 sudo-randomly generated page references. This test is purely to demonstrate that a large number of pages can be processed by all algorithms. Note: one quick check to ensure accuracy is that all page faults are equal for 1 frame.
+
 __Examples__
 
 __Known Bugs and Problem Areas__
