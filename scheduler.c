@@ -310,11 +310,13 @@ int simulate_lru_esc(int num_frames, int ref_length, ref_element_t *ref_string[]
 	for(i = 0; i < ref_length; i++){
 		found = 0;
 		
+		// See if it's already in the array
 		for(j = 0; j < num_frames && !found; j++){
 			if(frames[j] == (*ref_string)[i].page && ref_modes[j] == (*ref_string)[i].mode){
 				// Found it, update ref_bit
 				ref_bits[j] = 1;
 				found = 1;
+printf("\nFOUND:   %d:%c IN FRAME %d", frames[j], ref_modes[j], j);
 			}
 		}
 		
@@ -341,7 +343,7 @@ int simulate_lru_esc(int num_frames, int ref_length, ref_element_t *ref_string[]
 			}
 			// If no victim is found, look for (0,R) again, now that we've changed ref_bits
 			for(j = 0; j < num_frames && !found; j++){
-				if(ref_bits[insert] == 0 && ref_modes[insert] != 'W'){
+				if(ref_modes[insert] != 'W'){
 					found = 1;
 				}
 				else{
@@ -358,7 +360,7 @@ int simulate_lru_esc(int num_frames, int ref_length, ref_element_t *ref_string[]
 					insert = (insert + 1) % num_frames;
 				}
 			}*/
-			
+printf("\nREPLACED %d:%c WITH %d:%c IN FRAME %d", frames[insert], ref_modes[insert], (*ref_string)[i].page, (*ref_string)[i].mode, insert);
 			// frames[insert] is now the victim
 			frames[insert] = (*ref_string)[i].page;
 			ref_modes[insert] = (*ref_string)[i].mode;
@@ -368,6 +370,6 @@ int simulate_lru_esc(int num_frames, int ref_length, ref_element_t *ref_string[]
 		}
 
 	}
-
+printf("\n\n");
 	return faults;
 }
