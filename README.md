@@ -60,7 +60,7 @@ __Test Cases__
 __Examples__
 
 This example shows the command `./scheduler test/level8.txt -f 4`.  This demonstrates the ability to supply a frame number to print only one frame.
-`
+````
 shell$ ./scheduler test/level8.txt -f 4
 Num. Frames : 4
 Ref. File   : test/level8.txt
@@ -70,10 +70,11 @@ Reference String:
 -------------------------------
 Frames  Opt.    FIFO    LRU     SC      ESC
  4        10     14     15     14     14
- `
+ ````
+
  This example shows the command `./scheduler test/level8.txt`.  This demonstrates the same reference string as above, but printing all frames.
- `
- shell$ ./scheduler test/level8.txt
+````
+shell$ ./scheduler test/level8.txt
 Num. Frames : All
 Ref. File   : test/level8.txt
 -------------------------------
@@ -88,11 +89,11 @@ Frames  Opt.    FIFO    LRU     SC      ESC
  5        10     10     11     10     12
  6        10     10     10     10     11
  7        10     10     10     10     10
- `
+ ````
  
  This example shows the command `./scheduler test/level10.txt`.  This demonstrates how the program will handle improperly formatted files without crashing.
- `
- shell$ ./scheduler test/level8.txt 
+````
+shell$ ./scheduler test/level8.txt
 Num. Frames : All
 Ref. File   : test/level8.txt
 -------------------------------
@@ -112,7 +113,7 @@ Num. Frames : All
 Ref. File   : test/level10.txt
 -------------------------------
 Ensure that the file specified exists and is properly formatted.
- `
+````
 
 __Known Bugs and Problem Areas__
 * No bugs or problem areas are known at this time.
