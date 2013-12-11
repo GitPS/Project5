@@ -53,6 +53,9 @@ __Test Cases__
 
 * Test 10 - `test/level10.txt` - This test contains a value declaring a greater number of reference strings than actually exist in the file. This test ensures that files that are improperly formatted are handled correctly.
 
+* Test 11 - `test/level11.txt' - This test contains 15 page references where all page references are reads.  By executing this test it is a quick check to ensure that LRU SC and LRU ESC are working properly.  Since there are no writes in this test file, both algorithms should produce the exact same number of page faults.
+
+* Test 12 - `test/level12.txt' - This test conatins 15 page references with a mixture of reads and writes.  By executing this test we can verify that LRU SC and LRU ESC behave differently when there are writes involved.
 __Examples__
 
 __Known Bugs and Problem Areas__
