@@ -93,22 +93,7 @@ Frames  Opt.    FIFO    LRU     SC      ESC
  
  This example shows the command `./scheduler test/level10.txt`.  This demonstrates how the program will handle improperly formatted files without crashing.
 ````
-shell$ ./scheduler test/level8.txt
-Num. Frames : All
-Ref. File   : test/level8.txt
--------------------------------
-Reference String:
- 1:R,  0:W,  3:R,  5:W,  5:W,  9:W,  4:R,  9:R,  8:W,  3:R,  8:W,  2:W,  6:W,  2:W,  9:W,  4:W,  4:R,  7:R,  6:W,  2:R
--------------------------------
-Frames  Opt.    FIFO    LRU     SC      ESC
- 1        18     18     18     18     18
- 2        14     15     15     15     15
- 3        11     15     15     15     15
- 4        10     14     15     14     14
- 5        10     10     11     10     12
- 6        10     10     10     10     11
- 7        10     10     10     10     10
-MacBook-Pro:Project5 phil$ ./scheduler test/level10.txt 
+shell$ ./scheduler test/level10.txt
 Num. Frames : All
 Ref. File   : test/level10.txt
 -------------------------------
