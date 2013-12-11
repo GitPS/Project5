@@ -127,8 +127,8 @@ int simulate_optimal(int num_frames, int ref_length, ref_element_t *ref_string[]
 			faults++;
 		}
     }
-    j = i;
-    for(i = j; i < ref_length; i++){
+
+    for(; i < ref_length; i++){
         if(!in_array(frames, num_frames, (*ref_string)[i].page)){
             /* Determine optimal replacement */
             optimal_time = -1;
@@ -235,8 +235,7 @@ int simulate_lru(int num_frames, int ref_length, ref_element_t *ref_string[]){
         }
     }
     
-    j = i;
-    for(i = j; i < ref_length; i++){
+    for(; i < ref_length; i++){
         if(!in_array(frames, num_frames, (*ref_string)[i].page)){
             /* Determine LRU */
             lru_min_time = -1;
