@@ -156,13 +156,11 @@ int simulate_optimal(int num_frames, int ref_length, ref_element_t *ref_string[]
                         optimal_time = timestamps[frames[j]].time;
                         optimal_value = frames[j];
                     }
-                    //printf("\nDEBUG %d", __LINE__);
                 }
             }
             
             /* Replace optimal value in frames array */
             for(j = 0; j < num_frames; j++){
-                //printf("\nDEBUG %d", __LINE__);
                 if(frames[j] == optimal_value){
                     frames[j] = (*ref_string)[i].page;
                     faults++;
