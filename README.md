@@ -53,10 +53,66 @@ __Test Cases__
 
 * Test 10 - `test/level10.txt` - This test contains a value declaring a greater number of reference strings than actually exist in the file. This test ensures that files that are improperly formatted are handled correctly.
 
-* Test 11 - `test/level11.txt' - This test contains 15 page references where all page references are reads.  By executing this test it is a quick check to ensure that LRU SC and LRU ESC are working properly.  Since there are no writes in this test file, both algorithms should produce the exact same number of page faults.
+* Test 11 - `test/level11.txt` - This test contains 15 page references where all page references are reads.  By executing this test it is a quick check to ensure that LRU SC and LRU ESC are working properly.  Since there are no writes in this test file, both algorithms should produce the exact same number of page faults.
 
-* Test 12 - `test/level12.txt' - This test conatins 15 page references with a mixture of reads and writes.  By executing this test we can verify that LRU SC and LRU ESC behave differently when there are writes involved.
+* Test 12 - `test/level12.txt` - This test conatins 15 page references with a mixture of reads and writes.  By executing this test we can verify that LRU SC and LRU ESC behave differently when there are writes involved.
+
 __Examples__
+
+This example shows the command `./scheduler test/level8.txt -f 4`.  This demonstrates the ability to supply a frame number to print only one frame.
+`
+shell$ ./scheduler test/level8.txt -f 4
+Num. Frames : 4
+Ref. File   : test/level8.txt
+-------------------------------
+Reference String:
+ 1:R,  0:W,  3:R,  5:W,  5:W,  9:W,  4:R,  9:R,  8:W,  3:R,  8:W,  2:W,  6:W,  2:W,  9:W,  4:W,  4:R,  7:R,  6:W,  2:R
+-------------------------------
+Frames  Opt.    FIFO    LRU     SC      ESC
+ 4        10     14     15     14     14
+ `
+ This example shows the command `./scheduler test/level8.txt`.  This demonstrates the same reference string as above, but printing all frames.
+ `
+ shell$ ./scheduler test/level8.txt
+Num. Frames : All
+Ref. File   : test/level8.txt
+-------------------------------
+Reference String:
+ 1:R,  0:W,  3:R,  5:W,  5:W,  9:W,  4:R,  9:R,  8:W,  3:R,  8:W,  2:W,  6:W,  2:W,  9:W,  4:W,  4:R,  7:R,  6:W,  2:R
+-------------------------------
+Frames  Opt.    FIFO    LRU     SC      ESC
+ 1        18     18     18     18     18
+ 2        14     15     15     15     15
+ 3        11     15     15     15     15
+ 4        10     14     15     14     14
+ 5        10     10     11     10     12
+ 6        10     10     10     10     11
+ 7        10     10     10     10     10
+ `
+ 
+ This example shows the command `./scheduler test/level10.txt`.  This demonstrates how the program will handle improperly formatted files without crashing.
+ `
+ shell$ ./scheduler test/level8.txt 
+Num. Frames : All
+Ref. File   : test/level8.txt
+-------------------------------
+Reference String:
+ 1:R,  0:W,  3:R,  5:W,  5:W,  9:W,  4:R,  9:R,  8:W,  3:R,  8:W,  2:W,  6:W,  2:W,  9:W,  4:W,  4:R,  7:R,  6:W,  2:R
+-------------------------------
+Frames  Opt.    FIFO    LRU     SC      ESC
+ 1        18     18     18     18     18
+ 2        14     15     15     15     15
+ 3        11     15     15     15     15
+ 4        10     14     15     14     14
+ 5        10     10     11     10     12
+ 6        10     10     10     10     11
+ 7        10     10     10     10     10
+MacBook-Pro:Project5 phil$ ./scheduler test/level10.txt 
+Num. Frames : All
+Ref. File   : test/level10.txt
+-------------------------------
+Ensure that the file specified exists and is properly formatted.
+ `
 
 __Known Bugs and Problem Areas__
 * No bugs or problem areas are known at this time.
